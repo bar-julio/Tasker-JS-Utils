@@ -1,12 +1,12 @@
-let address;
-let data;
-let error = false;
-let message = "";
+var address;
+var data;
+var error = false;
+var message = "";
 console.log("address: ", address);
 console.log("data: ", data);
 
 /* function readFile(params) {
-    let data = [
+    var data = [
         { active: true, data: "thisisdata", key: "ab" },
         { active: true, data: "thisisdataoptinal", key: "cd" },
         { active: true, data: "lastdata", key: "ef" },
@@ -21,33 +21,33 @@ function writeFile(params, data) {
     return undefined;
 } */
 
-let result = "None";
-let results = [];
-let multiple = false;
+var result = "None";
+var results = [];
+var multiple = false;
 try {
-    let regex = /^([a-z0-9]+)(\.(all|get|add|del|delete|upd|update|active))$/;
+    var regex = /^([a-z0-9]+)(\.(all|get|add|del|delete|upd|update|active))$/;
 
     if (regex.test(address)) {
-        let arr = address.split(".");
-        let fileName = global("Database")+arr[0]+".json";
+        var arr = address.split(".");
+        var fileName = global("Database")+arr[0]+".json";
         console.log('>db@ln:33 > fileName: ', fileName);
-        let operation = arr[1];
-        let secondary = undefined;
+        var operation = arr[1];
+        var secondary = undefined;
         if (operation == "upd" || operation == "update" || operation == "add") {
             if (/^.*\|.*$/.test(data)) {
-                let arrData = data.split("|");
+                var arrData = data.split("|");
                 data = arrData[0];
                 secondary = arrData[1];
             } else {
                 throw new Error("Data not ready");
             }
         }
-        let rawData = readFile(fileName);
-        let parsed = JSON.parse(rawData);
-        let temp;
+        var rawData = readFile(fileName);
+        var parsed = JSON.parse(rawData);
+        var temp;
         switch (operation) {
             case "all":
-                let first = true;
+                var first = true;
                 for (const iterator of parsed) {
                     if (iterator["active"]) {
                         if (!first) {
@@ -72,7 +72,7 @@ try {
                 }
                 break;
             case "add":
-                let node = { active: true, key: data, data: secondary };
+                var node = { active: true, key: data, data: secondary };
                 if (parsed) temp = parsed.push(node);
                 else temp = [].push(node);
                 writeFile(fileName, JSON.stringify(parsed));
@@ -80,7 +80,7 @@ try {
             case "del":
             case "delete":
                 if (parsed) {
-                    for (let iterator of parsed) {
+                    for (var iterator of parsed) {
                         if (iterator["active"] && iterator["key"] == data) {
                             iterator["active"] = false;
                             break;
@@ -92,7 +92,7 @@ try {
             case "upd":
             case "update":
                 if (parsed) {
-                    for (let iterator of parsed) {
+                    for (var iterator of parsed) {
                         if (iterator["active"] && iterator["key"] == data) {
                             iterator["data"] = secondary;
                             break;
@@ -103,7 +103,7 @@ try {
                 break;
             case "active":
                 if (parsed) {
-                    for (let iterator of parsed) {
+                    for (var iterator of parsed) {
                         if (!iterator["active"] && iterator["key"] == data) {
                             iterator["active"] = true;
                             break;
