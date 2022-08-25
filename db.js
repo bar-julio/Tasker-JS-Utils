@@ -1,5 +1,5 @@
-let address = "temp.active";
-let data = "gh";
+let address;
+let data;
 let error = false;
 let message = "";
 console.log("address: ", address);
@@ -29,7 +29,8 @@ try {
 
     if (regex.test(address)) {
         let arr = address.split(".");
-        let fileName = arr[0];
+        let fileName = global("Database")+arr[0]+".json";
+        console.log('>db@ln:33 > fileName: ', fileName);
         let operation = arr[1];
         let secondary = undefined;
         if (operation == "upd" || operation == "update" || operation == "add") {
@@ -41,7 +42,7 @@ try {
                 throw new Error("Data not ready");
             }
         }
-        let rawData = readFile(fileName + ".json");
+        let rawData = readFile(fileName);
         let parsed = JSON.parse(rawData);
         let temp;
         switch (operation) {
