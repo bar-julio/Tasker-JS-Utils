@@ -30,7 +30,7 @@ try {
     var regex = /^([a-z0-9]+)(\.(all|get|add|del|delete|upd|update|active))$/;
     if (regex.test(address)) {
         var arr = address.split(".");
-        var fileName = global("Database") + arr[0] + ".json";
+        var fileName = global("Database") + "/" + arr[0] + ".json";
         debug = fileName;
         var operation = arr[1];
         var secondary = undefined;
