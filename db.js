@@ -1,9 +1,11 @@
 var address;
 var data;
-var error = false;
-var message = "";
-console.log("address: ", address);
-console.log("data: ", data);
+var error;
+var message;
+var debug;
+
+error = false;
+message = "";
 
 /* function readFile(params) {
     var data = [
@@ -26,11 +28,10 @@ var results = [];
 var multiple = false;
 try {
     var regex = /^([a-z0-9]+)(\.(all|get|add|del|delete|upd|update|active))$/;
-
     if (regex.test(address)) {
         var arr = address.split(".");
-        var fileName = global("Database")+arr[0]+".json";
-        console.log('>db@ln:33 > fileName: ', fileName);
+        var fileName = global("Database") + arr[0] + ".json";
+        debug = fileName;
         var operation = arr[1];
         var secondary = undefined;
         if (operation == "upd" || operation == "update" || operation == "add") {
@@ -121,11 +122,5 @@ try {
     }
 } catch (ex) {
     error = true;
-    message = ex;
-} finally {
-    console.log("error: ", error);
-    console.log("message: ", message);
-    console.log("multiple: ", multiple);
-    console.log("result: ", result);
-    console.log("results: ", results);
+    message = "err: " + ex;
 }
