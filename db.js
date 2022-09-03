@@ -7,25 +7,21 @@ var debug;
 error = false;
 message = "";
 
-/* function readFile(params) {
-    var data = [
-        { active: true, data: "thisisdata", key: "ab" },
-        { active: true, data: "thisisdataoptinal", key: "cd" },
-        { active: true, data: "lastdata", key: "ef" },
-        { active: false, data: "thisisoff", key: "gh" },
-        { active: true, data: "thisison", key: "ij" },
-    ];
-    return JSON.stringify(data);
-}
-function writeFile(params, data) {
-    console.log("fileName: ", params);
-    console.log("data: ", data);
-    return undefined;
-} */
-
 var result = "None";
 var results = [];
 var multiple = false;
+
+//functions
+function checkIfFileLoaded(fileName) {
+    $.get(fileName, function (data, textStatus) {
+        return textStatus == "success";
+    });
+}
+
+//--
+
+//main routine
+
 try {
     var regex = /^([a-z0-9]+)(\.(all|get|add|del|delete|upd|update|active))$/;
     if (regex.test(address)) {
@@ -43,6 +39,16 @@ try {
                 throw new Error("Data not ready");
             }
         }
+
+        //check if exists
+        if(!checkIfFileLoaded(fileName)){
+            if(operation = "add"){
+                writeFile(fileName, "[]",false);
+            } else {
+                throw new Error("File doe not exists");
+            }
+        }
+        //--
         var rawData = readFile(fileName);
         var parsed = JSON.parse(rawData);
         var temp;
@@ -76,7 +82,7 @@ try {
                 var node = { active: true, key: data, data: secondary };
                 if (parsed) temp = parsed.push(node);
                 else temp = [].push(node);
-                writeFile(fileName, JSON.stringify(parsed));
+                writeFile(fileName, JSON.stringify(parsed),false);
                 break;
             case "del":
             case "delete":
@@ -87,7 +93,7 @@ try {
                             break;
                         }
                     }
-                    writeFile(fileName, JSON.stringify(parsed));
+                    writeFile(fileName, JSON.stringify(parsed),false);
                 }
                 break;
             case "upd":
@@ -99,7 +105,7 @@ try {
                             break;
                         }
                     }
-                    writeFile(fileName, JSON.stringify(parsed));
+                    writeFile(fileName, JSON.stringify(parsed), false);
                 }
                 break;
             case "active":
@@ -110,7 +116,7 @@ try {
                             break;
                         }
                     }
-                    writeFile(fileName, JSON.stringify(parsed));
+                    writeFile(fileName, JSON.stringify(parsed),false);
                 }
                 break;
             default:
