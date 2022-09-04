@@ -11,7 +11,8 @@ var result = "None";
 var results = [];
 var multiple = false;
 
-import fs from "fs";
+const { fs } = require("fs")
+
 
 //functions
 function checkIfExists(fileName) {
