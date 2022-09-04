@@ -12,10 +12,9 @@ var results = [];
 var multiple = false;
 
 //functions
-function checkIfFileLoaded(fileName) {
-    $.get(fileName, function (data, textStatus) {
-        return textStatus == "success";
-    });
+function checkIfExists(fileName) {
+    File file = new File(fileName);
+    return file.exists();
 }
 
 //--
@@ -26,7 +25,7 @@ try {
     var regex = /^([a-z0-9]+)(\.(all|get|add|del|delete|upd|update|active))$/;
     if (regex.test(address)) {
         var arr = address.split(".");
-        var fileName = global("Database") + "/" + arr[0] + ".json";
+        var fileName = global("SD_CARD") + global("Database") + arr[0] + ".json";
         debug = fileName;
         var operation = arr[1];
         var secondary = undefined;
@@ -41,7 +40,7 @@ try {
         }
 
         //check if exists
-        if(!checkIfFileLoaded(fileName)){
+        if(!checkIfExists(fileName)){
             if(operation = "add"){
                 writeFile(fileName, "[]",false);
             } else {
