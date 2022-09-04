@@ -30,6 +30,7 @@ try {
     if (regex.test(address)) {
         var arr = address.split(".");
         var fileName = global("SD_CARD") + global("Database") + arr[0] + ".json";
+        message = fileName;
         debug = fileName;
         var operation = arr[1];
         var secondary = undefined;
