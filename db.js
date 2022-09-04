@@ -11,10 +11,11 @@ var result = "None";
 var results = [];
 var multiple = false;
 
+import fs from "fs";
+
 //functions
 function checkIfExists(fileName) {
-    File file = new File(fileName);
-    return file.exists();
+    return fs.existsSync(fileName);
 }
 
 //--
@@ -40,9 +41,9 @@ try {
         }
 
         //check if exists
-        if(!checkIfExists(fileName)){
-            if(operation = "add"){
-                writeFile(fileName, "[]",false);
+        if (!checkIfExists(fileName)) {
+            if ((operation = "add")) {
+                writeFile(fileName, "[]", false);
             } else {
                 throw new Error("File doe not exists");
             }
@@ -81,7 +82,7 @@ try {
                 var node = { active: true, key: data, data: secondary };
                 if (parsed) temp = parsed.push(node);
                 else temp = [].push(node);
-                writeFile(fileName, JSON.stringify(parsed),false);
+                writeFile(fileName, JSON.stringify(parsed), false);
                 break;
             case "del":
             case "delete":
@@ -92,7 +93,7 @@ try {
                             break;
                         }
                     }
-                    writeFile(fileName, JSON.stringify(parsed),false);
+                    writeFile(fileName, JSON.stringify(parsed), false);
                 }
                 break;
             case "upd":
@@ -115,7 +116,7 @@ try {
                             break;
                         }
                     }
-                    writeFile(fileName, JSON.stringify(parsed),false);
+                    writeFile(fileName, JSON.stringify(parsed), false);
                 }
                 break;
             default:
