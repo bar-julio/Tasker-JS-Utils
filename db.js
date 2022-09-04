@@ -16,7 +16,9 @@ const { fs } = require("fs")
 
 //functions
 function checkIfExists(fileName) {
-    return fs.existsSync(fileName);
+    $.get(fileName, function (data, textStatus) {
+        return textStatus == "success";
+    });
 }
 
 //--
