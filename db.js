@@ -42,7 +42,7 @@ try {
 
         //check if exists
         if (!checkIfExists(fileName)) {
-            if ((operation == "add")) {
+            if (operation == "add") {
                 writeFile(fileName, "[]", false);
             } else {
                 throw new Error("File doe not exists");
@@ -80,9 +80,11 @@ try {
                 break;
             case "add":
                 var node = { active: true, key: data, data: secondary };
-                if (parsed) temp = parsed.push(node);
-                else temp = [].push(node);
-                writeFile(fileName, JSON.stringify(parsed), false);
+                if (parsed)
+                    if (!parsed.find((x) => x.key == data && x.active)) temp = parsed.push(node);
+                    else temp = [].push(node);
+                result = secondary;
+                writeFile(fileName, JSON.stringify(temp), false);
                 break;
             case "del":
             case "delete":
