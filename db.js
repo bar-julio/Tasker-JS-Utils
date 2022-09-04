@@ -83,7 +83,7 @@ try {
                 if (parsed)
                     if (!parsed.find((x) => x.key == data && x.active)) parsed.push(node);
                     else throw new Error("Key already exists");
-                else parsed = [].push(node);
+                else parsed = [node];
                 result = secondary;
                 writeFile(fileName, JSON.stringify(parsed), false);
                 break;
