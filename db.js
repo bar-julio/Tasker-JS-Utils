@@ -5,14 +5,11 @@ var message;
 var debug;
 
 error = false;
-message = "";
+message = "None";
 
 var result = "None";
 var results = [];
 var multiple = false;
-
-const { fs } = require("fs")
-
 
 //functions
 function checkIfExists(fileName) {
@@ -30,7 +27,6 @@ try {
     if (regex.test(address)) {
         var arr = address.split(".");
         var fileName = global("SD_CARD") + global("Database") + arr[0] + ".json";
-        message = fileName;
         debug = fileName;
         var operation = arr[1];
         var secondary = undefined;
@@ -46,7 +42,7 @@ try {
 
         //check if exists
         if (!checkIfExists(fileName)) {
-            if ((operation = "add")) {
+            if ((operation == "add")) {
                 writeFile(fileName, "[]", false);
             } else {
                 throw new Error("File doe not exists");
