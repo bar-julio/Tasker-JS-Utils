@@ -81,10 +81,10 @@ try {
             case "add":
                 var node = { active: true, key: data, data: secondary };
                 if (parsed)
-                    if (!parsed.find((x) => x.key == data && x.active)) temp = parsed.push(node);
-                    else temp = [].push(node);
+                    if (!parsed.find((x) => x.key == data && x.active)) parsed.push(node);
+                    else parsed = [].push(node);
                 result = secondary;
-                writeFile(fileName, JSON.stringify(temp), false);
+                writeFile(fileName, JSON.stringify(parsed), false);
                 break;
             case "del":
             case "delete":
