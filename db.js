@@ -1,14 +1,10 @@
 var address;
 var data;
-var error;
-var message;
-var debug;
 
-error = false;
-message = "None";
+var error = false;
+var message = "None";
 
 var dbresult = "None";
-var dbresults = [];
 var multiple = false;
 //main routine
 
@@ -43,7 +39,6 @@ try {
                         first = false;
                         temp = iterator["data"];
                     }
-                    dbresults.push(iterator["data"]);
                 }
             }
             dbresult = temp;
@@ -52,7 +47,6 @@ try {
             for (const iterator of parsed) {
                 if (iterator["active"] && iterator["key"] == data) {
                     dbresult = iterator["data"];
-                    dbresults.push(iterator["data"]);
                     break;
                 }
             }
